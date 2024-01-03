@@ -10,7 +10,7 @@ export default function Header() {
       <img
         className="headerImg"
         src="https://downloadhere.co/resource/templates/upload/downloadHere1631785965dHDownloadHereProductwsdLayout.jpg"
-        alt=""
+        alt="logo"
       />
     </div>
   );

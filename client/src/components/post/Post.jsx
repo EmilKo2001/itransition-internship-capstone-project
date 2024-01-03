@@ -1,16 +1,21 @@
+import { Link } from "react-router-dom";
 
 import "./post.css";
-import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
   const uploadPic = "http://localhost:5000/images/";
+
   return (
     <div className="post">
-      {post.photo && <img className="postImg" src={uploadPic + post.photo} alt="" />}
+      {post.photo && (
+        <img className="postImg" src={uploadPic + post.photo} alt="" />
+      )}
       <div className="postInfo">
         <div className="postCats">
-          {post.categories.map((c) => (
-            <span className="postCat">{c.name}</span>
+          {post.categories.map((c, idx) => (
+            <span className="postCat" key={`postCat${idx}`}>
+              {c.name}
+            </span>
           ))}
         </div>
         <Link to={`/post/${post._id}`} className="link">

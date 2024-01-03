@@ -21,7 +21,7 @@ mongoose
     useFindAndModify: true,
   })
   .then(console.log("Connected to MongoDB"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.error(err));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
