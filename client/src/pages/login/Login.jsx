@@ -4,8 +4,7 @@ import { useRef, useContext } from "react";
 import axios from "axios";
 
 import { Context } from "../../context/Context";
-
-import "./login.css";
+import Container from "../../components/Container";
 
 export default function Login() {
   const userRef = useRef();
@@ -27,30 +26,37 @@ export default function Login() {
     }
   };
   return (
-    <div className="login">
-      <span className="loginTitle">Login</span>
-      <form className="loginForm" onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input
-          className="loginInput"
-          type="text"
-          placeholder="Enter your username"
-          ref={userRef}
-        />
-        <label>Password</label>
-        <input
-          className="loginInput"
-          type="password"
-          placeholder="Enter your password..."
-          ref={passwordRef}
-        />
-        <button className="loginButton" type="submit" disabled={isFetching}>
+    <Container className="max-w-80">
+      <h1 className="mb-5	text-center text-xl lg:mb-7 lg:text-4xl">Login</h1>
+      <form
+        className="flex flex-col items-center gap-6"
+        onSubmit={handleSubmit}
+      >
+        {" "}
+        <div className="flex w-full flex-col gap-2">
+          <label>Username</label>
+          <input
+            className="input input-bordered w-full max-w-xs"
+            type="text"
+            placeholder="Enter your username"
+            ref={userRef}
+            required
+          />{" "}
+        </div>{" "}
+        <div className="flex w-full flex-col gap-2">
+          <label>Password</label>
+          <input
+            className="input input-bordered w-full max-w-xs"
+            type="password"
+            placeholder="Enter your password..."
+            ref={passwordRef}
+            required
+          />{" "}
+        </div>
+        <button className="btn" type="submit" disabled={isFetching}>
           Login
         </button>
       </form>
-      <Link to={"/register"} className="link">
-        <button className="loginRegisterButton">Register</button>
-      </Link>
-    </div>
+    </Container>
   );
 }

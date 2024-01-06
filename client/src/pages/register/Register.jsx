@@ -25,7 +25,7 @@ export default function Register() {
     }
   };
   return (
-    <Container className="max-w-3xl">
+    <Container className="max-w-80">
       <h1 className="mb-5	text-center text-xl lg:mb-7 lg:text-4xl">Register</h1>
       <form
         className="flex flex-col items-center gap-6"
