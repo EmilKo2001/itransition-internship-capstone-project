@@ -25,7 +25,7 @@ export default function Homepage() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="home">
         <Posts posts={posts} />
         <Sidebar />
