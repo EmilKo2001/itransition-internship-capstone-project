@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
-
-import "./register.css";
+import Container from "../../components/Container";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -26,42 +25,47 @@ export default function Register() {
     }
   };
   return (
-    <div className="register">
-      <span className="registerTitle">Register</span>
-      <form className="registerForm" onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input
-          className="registerInput"
-          type="text"
-          placeholder="Enter your username..."
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label>Email</label>
-        <input
-          className="registerInput"
-          type="email"
-          placeholder="Enter your email..."
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label>Password</label>
-        <input
-          className="registerInput"
-          type="password"
-          placeholder="Enter your password..."
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="registerButton" type="submit">
+    <Container className="max-w-3xl">
+      <h1 className="mb-5	text-center text-xl lg:mb-7 lg:text-4xl">Register</h1>
+      <form
+        className="flex flex-col items-center gap-6"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex w-full flex-col gap-2">
+          <label>Username</label>
+          <input
+            className="input input-bordered w-full max-w-xs"
+            type="text"
+            placeholder="Enter your username..."
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div className="flex w-full  flex-col gap-2">
+          <label>Email</label>
+          <input
+            className="input input-bordered w-full max-w-xs"
+            type="email"
+            placeholder="Enter your email..."
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />{" "}
+        </div>
+        <div className="flex w-full  flex-col gap-2">
+          <label>Password</label>
+          <input
+            className="input input-bordered w-full max-w-xs"
+            type="password"
+            placeholder="Enter your password..."
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />{" "}
+        </div>
+        <button className="btn" type="submit">
           Register
         </button>
       </form>
-      <Link to={"/login"} className="link">
-        <button className="registerLoginButton">Login</button>
-      </Link>
-      {error && (
-        <span style={{ color: "red", marginTop: "15px" }}>
-          Something went Wrong 😕
-        </span>
-      )}
-    </div>
+      {error && <span className="text-red mt-3">Something went Wrong 😕</span>}
+    </Container>
   );
 }
