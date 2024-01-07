@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { Context } from "../../context/Context";
@@ -13,9 +13,25 @@ export default function Header() {
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
+
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  useEffect(() => {
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }, [theme]);
+
   return (
-    <div className="top">
+    <header className="top">
       <Container>
+        <label className="swap swap-rotate">
+          <input onClick={toggleTheme} type="checkbox" />
+          <div className="swap-on">DARKMODE</div>
+          <div className="swap-off">LIGHTMODE</div>
+        </label>
         <div className="topLeft">
           <i className="topIcon fab fa-facebook-square"></i>
           <i className="topIcon fab fa-twitter-square"></i>
@@ -66,6 +82,6 @@ export default function Header() {
           <i className="topSearchIcon fas fa-search"></i>
         </div>{" "}
       </Container>
-    </div>
+    </header>
   );
 }
