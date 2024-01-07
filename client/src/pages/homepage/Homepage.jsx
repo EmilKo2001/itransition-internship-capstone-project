@@ -133,7 +133,7 @@ export default function Homepage() {
               Топ 5 больших коллекций
             </h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-              <div className="card w-full shadow-xl">
+              <div className="card w-full shadow">
                 <img
                   src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
                   alt="Shoes"

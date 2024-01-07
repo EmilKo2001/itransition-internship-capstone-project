@@ -19,7 +19,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <main>
+      <main className="pt-8 lg:pt-28">
         <Switch>
           <Route exact path="/">
             <Homepage />
