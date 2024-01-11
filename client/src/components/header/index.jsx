@@ -6,7 +6,7 @@ import { Context } from "../../context/Context";
 import Container from "../Container";
 
 export default function Header() {
-  const { user, dispatch } = useContext(Context);
+  const { token, dispatch } = useContext(Context);
   const PF = "http://localhost:5000/images/";
 
   const handleLogout = () => {
@@ -63,7 +63,7 @@ export default function Header() {
                   </Link>
                 </li>
 
-                {user ? (
+                {token ? (
                   <>
                     <li className="">
                       <Link className="link" to="/admin">
@@ -99,7 +99,7 @@ export default function Header() {
                 </Link>
               </li>
 
-              {user ? (
+              {token ? (
                 <>
                   <li className="">
                     <Link className="link" to="/admin">

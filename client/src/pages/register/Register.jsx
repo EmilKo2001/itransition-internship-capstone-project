@@ -5,6 +5,7 @@ import axios from "axios";
 import Container from "../../components/Container";
 
 export default function Register() {
+  const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +16,7 @@ export default function Register() {
     setError(false);
     try {
       const res = await axios.post("/auth/register", {
+        fullname: fullname,
         username,
         email,
         password,
@@ -32,6 +34,17 @@ export default function Register() {
         onSubmit={handleSubmit}
       >
         <div className="flex w-full flex-col gap-2">
+          {" "}
+          <div className="flex w-full flex-col gap-2">
+            <label>Full Name</label>
+            <input
+              className="input input-bordered w-full max-w-xs"
+              type="text"
+              placeholder="Enter your full name"
+              onChange={(e) => setFullname(e.target.value)}
+              required
+            />{" "}
+          </div>{" "}
           <label>Username</label>
           <input
             className="input input-bordered w-full max-w-xs"

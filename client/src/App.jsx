@@ -15,7 +15,7 @@ import Write from "./pages/write/Write";
 import "./global.css";
 
 function App() {
-  const { user } = useContext(Context);
+  const { token } = useContext(Context);
 
   return (
     <Router>
@@ -28,19 +28,18 @@ function App() {
           <Route path="/posts">
             <Homepage />
           </Route>
-          <Route path="/register">{user ? <Homepage /> : <Register />}</Route>
-          <Route path="/login">{user ? <Homepage /> : <Login />}</Route>
+          <Route path="/register">{token ? <Homepage /> : <Register />}</Route>
+          <Route path="/login">{token ? <Homepage /> : <Login />}</Route>
           <Route path="/post/:id">
             <Single />
           </Route>
-          <Route path="/write">{user ? <Write /> : <Login />}</Route>
-          <Route path="/admin">{user ? <Admin /> : <Login />}</Route>
+          <Route path="/write">{token ? <Write /> : <Login />}</Route>
           <Route path="/admin/collections-new">
-            {user ? <CollectionAdd /> : <Login />}
+            {token ? <CollectionAdd /> : <Login />}
           </Route>
+          <Route path="/admin">{token ? <Admin /> : <Login />}</Route>
           <Route path="*">
-            {" "}
-            <h1 className="text-center text-xl lg:text-4xl">404</h1>{" "}
+            <h1 className="text-center text-xl lg:text-4xl">404</h1>
           </Route>
         </Switch>
       </main>
