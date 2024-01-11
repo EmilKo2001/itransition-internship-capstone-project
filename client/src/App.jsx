@@ -7,7 +7,8 @@ import Header from "./components/Header";
 import Homepage from "./pages/homepage/Homepage";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import Settings from "./pages/settings/Settings";
+import Admin from "./pages/admin/Admin";
+import CollectionAdd from "./pages/collections-new/CollectionAdd";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 
@@ -33,7 +34,14 @@ function App() {
             <Single />
           </Route>
           <Route path="/write">{user ? <Write /> : <Login />}</Route>
-          <Route path="/settings">{user ? <Settings /> : <Login />}</Route>
+          <Route path="/admin">{user ? <Admin /> : <Login />}</Route>
+          <Route path="/admin/collections-new">
+            {user ? <CollectionAdd /> : <Login />}
+          </Route>
+          <Route path="*">
+            {" "}
+            <h1 className="text-center text-xl lg:text-4xl">404</h1>{" "}
+          </Route>
         </Switch>
       </main>
     </Router>

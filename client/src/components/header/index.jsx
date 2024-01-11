@@ -13,10 +13,11 @@ export default function Header() {
     dispatch({ type: "LOGOUT" });
   };
 
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "dark");
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
+    localStorage.setItem("theme", theme === "dark" ? "light" : "dark");
   };
 
   useEffect(() => {
@@ -65,11 +66,11 @@ export default function Header() {
                 {user ? (
                   <>
                     <li className="">
-                      <Link className="link" to="/write">
-                        WRITE
+                      <Link className="link" to="/admin">
+                        ADMIN
                       </Link>
                     </li>
-                    <li className="" onClick={handleLogout}>
+                    <li className="link" onClick={handleLogout}>
                       LOGOUT
                     </li>
                   </>
@@ -101,12 +102,14 @@ export default function Header() {
               {user ? (
                 <>
                   <li className="">
-                    <Link className="link" to="/write">
-                      WRITE
+                    <Link className="link" to="/admin">
+                      ADMIN
                     </Link>
                   </li>
-                  <li className="" onClick={handleLogout}>
-                    LOGOUT
+                  <li className="link" onClick={handleLogout}>
+                    <Link className="link" to="#">
+                      LOGOUT
+                    </Link>
                   </li>
                 </>
               ) : (
