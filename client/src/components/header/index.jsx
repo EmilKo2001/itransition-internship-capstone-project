@@ -50,9 +50,6 @@ export default function Header() {
                   />
                 </svg>
               </div>
-              <Link to="/" className="btn btn-ghost ml-4 p-0 text-xl lg:ml-0">
-                LOGO
-              </Link>
               <ul
                 tabIndex={0}
                 className="menu-sm dropdown-content menu rounded-box z-[1] mt-3 w-52 bg-base-100 p-2 shadow"
@@ -70,8 +67,10 @@ export default function Header() {
                         ADMIN
                       </Link>
                     </li>
-                    <li className="link" onClick={handleLogout}>
-                      LOGOUT
+                    <li>
+                      <Link className="link" to="#">
+                        LOGOUT
+                      </Link>
                     </li>
                   </>
                 ) : (
@@ -90,6 +89,9 @@ export default function Header() {
                 )}
               </ul>
             </div>
+            <Link to="/" className="btn btn-ghost ml-4 p-0 text-xl lg:ml-0">
+              LOGO
+            </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">

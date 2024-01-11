@@ -1,4 +1,5 @@
 import { useRef, useContext } from "react";
+import { useHistory } from "react-router-dom";
 
 import axios from "axios";
 
@@ -8,6 +9,7 @@ import Container from "../../components/Container";
 export default function Login() {
   const userRef = useRef();
   const passwordRef = useRef();
+  let history = useHistory();
 
   const { dispatch, isFetching } = useContext(Context);
 
@@ -20,6 +22,7 @@ export default function Login() {
         password: passwordRef.current.value,
       });
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      history.push("/admin");
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });
     }
