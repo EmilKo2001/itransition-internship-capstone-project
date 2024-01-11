@@ -27,4 +27,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:slug", async (req, res) => {
+  const { slug } = req.params;
+
+  try {
+    const collection = await Collection.findOne({ slug });
+
+    if (!collection) {
+      return res.status(404).json({ error: "Collection not found" });
+    }
+
+    res.status(200).json(collection);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

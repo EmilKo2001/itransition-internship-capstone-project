@@ -1,12 +1,12 @@
-import { useContext, useState, useRef } from "react";
+import { useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 
 import axios from "axios";
 
-import { Context } from "../../context/Context";
 import Container from "../../components/Container";
 
-export default function CollectionAdd() {
-  const { user } = useContext(Context);
+export default function ItemCreate() {
+  let { slug } = useParams();
   const [formStatus, setFormStatus] = useState("");
 
   const nameRef = useRef();
@@ -16,9 +16,10 @@ export default function CollectionAdd() {
     setFormStatus("loading");
     try {
       await axios.post(
-        "/collections",
+        "/items",
         {
           name: nameRef.current.value,
+          category: slug,
         },
         {
           headers: {
@@ -35,7 +36,7 @@ export default function CollectionAdd() {
   return (
     <div>
       <Container className="max-w-80">
-        <h1 className="mb-4 text-xl lg:text-4xl">Add Collection</h1>
+        <h1 className="mb-4 text-xl lg:text-4xl">Add Item</h1>
         <form
           className="flex flex-col items-center gap-6"
           onSubmit={handleSubmit}
