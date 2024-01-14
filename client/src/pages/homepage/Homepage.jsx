@@ -1,26 +1,40 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Container from "../../components/Container";
-import { Link } from "react-router-dom";
+import Item from "../../components/Item";
+import Collection from "../../components/Collection";
 
 export default function Homepage() {
-  const location = useLocation();
-  const { search } = location;
-
-  const [posts, setPosts] = useState([]);
+  const [items, setItems] = useState([]);
+  const [collections, setCollections] = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await axios.get("/posts" + search);
-      setPosts(res.data);
+    const getItems = async () => {
+      try {
+        const res = await axios.get(`/items`);
+        setItems(res.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    fetchPosts();
-  }, [search]);
+
+    getItems();
+
+    const getCollections = async () => {
+      try {
+        const res = await axios.get("/collections");
+        setCollections(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getCollections();
+  }, []);
 
   return (
     <Container>
@@ -31,101 +45,9 @@ export default function Homepage() {
               Последнии айтемы
             </h1>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <ul className="mb-4">
-                    <li>
-                      Коллеция:{" "}
-                      <Link to="/" className="underline">
-                        name
-                      </Link>
-                    </li>
-                    <li>Автор: name</li>
-                  </ul>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <ul className="mb-4">
-                    <li>
-                      Коллеция:{" "}
-                      <Link to="/" className="underline">
-                        name
-                      </Link>
-                    </li>
-                    <li>Автор: name</li>
-                  </ul>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <ul className="mb-4">
-                    <li>
-                      Коллеция:{" "}
-                      <Link to="/" className="underline">
-                        name
-                      </Link>
-                    </li>
-                    <li>Автор: name</li>
-                  </ul>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <ul className="mb-4">
-                    <li>
-                      Коллеция:{" "}
-                      <Link to="/" className="underline">
-                        name
-                      </Link>
-                    </li>
-                    <li>Автор: name</li>
-                  </ul>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <ul className="mb-4">
-                    <li>
-                      Коллеция:{" "}
-                      <Link to="/" className="underline">
-                        name
-                      </Link>
-                    </li>
-                    <li>Автор: name</li>
-                  </ul>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
+              {items.length === 0 && <p>No Items</p>}
+              {items.length > 0 &&
+                items.map((item, idx) => <Item {...item} key={`item${idx}`} />)}
             </div>
           </section>{" "}
           <section className="mb-8 lg:mb-16">
@@ -133,61 +55,11 @@ export default function Homepage() {
               Топ 5 больших коллекций
             </h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-              <div className="card w-full shadow">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <p className="mb-2">Колическо айтемов: 10</p>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <p className="mb-2">Колическо айтемов: 10</p>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <p className="mb-2">Колическо айтемов: 10</p>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <p className="mb-2">Колическо айтемов: 10</p>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
-              <div className="card w-full shadow-xl">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-                <div className="card-body">
-                  <h2 className="card-title mb-2">Item Title</h2>
-                  <p className="mb-2">Колическо айтемов: 10</p>
-                  <button className="btn btn-primary">Смотреть</button>
-                </div>
-              </div>
+              {collections.length === 0 && <p>No Collections</p>}
+              {collections.length > 0 &&
+                collections.map((col, idx) => (
+                  <Collection {...col} key={`col${idx}`} />
+                ))}
             </div>
           </section>
         </div>

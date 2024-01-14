@@ -15,11 +15,12 @@ export default function ItemCreate() {
     e.preventDefault();
     setFormStatus("loading");
     try {
+      const collectionId = (await axios.get(`/collections/${slug}`)).data._id;
       await axios.post(
         "/items",
         {
           title: titleRef?.current?.value,
-          col: slug,
+          col: collectionId,
         },
         {
           headers: {

@@ -1,14 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Item({
-  title,
-  image,
-  col,
-  collectionSlug,
-  author,
-  slug,
-}) {
+export default function Item({ title, image, col, author, slug }) {
   return (
     <div className="card w-full shadow">
       {/* <img src={image} alt={title} /> */}
@@ -21,13 +14,16 @@ export default function Item({
         <ul className="mb-4">
           <li>
             Коллеция:{" "}
-            <Link to={`/collections/${col}`} className="underline">
-              {col}
+            <Link to={`/collections/${col.slug}`} className="underline">
+              {col.name}
             </Link>
           </li>
           <li>Автор: {author}</li>
         </ul>
-        <Link className="btn btn-primary" to={`/collections/${col}/${slug}`}>
+        <Link
+          className="btn btn-primary"
+          to={`/collections/${col.slug}/${slug}`}
+        >
           Смотреть
         </Link>
       </div>

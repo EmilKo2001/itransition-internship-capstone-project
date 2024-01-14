@@ -21,7 +21,8 @@ const ItemSchema = new mongoose.Schema(
       required: true,
     },
     col: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Collection",
       required: true,
     },
   },

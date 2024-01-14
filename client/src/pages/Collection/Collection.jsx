@@ -19,14 +19,15 @@ export default function Collection() {
       try {
         const res = await axios.get(`/collections/${slug}`);
         setCollection(res.data);
+        getItems(res.data._id);
       } catch (error) {
         console.error(error);
       }
     };
 
-    const getItems = async () => {
+    const getItems = async (colId) => {
       try {
-        const res = await axios.get(`/items?col=${slug}`);
+        const res = await axios.get(`/items?col=${colId}`);
         setItems(res.data);
       } catch (error) {
         console.error(error);
@@ -34,7 +35,6 @@ export default function Collection() {
     };
 
     getCollection();
-    getItems();
   }, []);
 
   return (

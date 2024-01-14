@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+const mongoose = require("mongoose");
 // const User = require("../models/User");
 const Item = require("../models/Item");
 
@@ -24,17 +25,21 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const colName = req.query.col;
+  const colId = req.query.col;
   try {
     let posts;
-    if (colName) {
+    if (colId) {
       posts = await Item.find({
         col: {
-          $eq: colName,
+          $eq: mongoose.Types.ObjectId(colId),
         },
-      });
+      })
+        .sort({ createdAt: -1 })
+        .populate("col", "name slug");
     } else {
-      posts = await Item.find();
+      posts = await Item.find()
+        .sort({ createdAt: -1 })
+        .populate("col", "name slug");
     }
     res.status(200).json(posts);
   } catch (err) {
