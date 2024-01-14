@@ -16,10 +16,10 @@ const ItemSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    // username: {
-    //   type: String,
-    //   required: true,
-    // },
+    author: {
+      type: String,
+      required: true,
+    },
     col: {
       type: String,
       required: true,

@@ -12,19 +12,29 @@ export default function Collection() {
   let { slug } = useParams();
 
   const [collection, setCollection] = useState({});
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     const getCollection = async () => {
       try {
         const res = await axios.get(`/collections/${slug}`);
-        console.log(res.data);
         setCollection(res.data);
       } catch (error) {
         console.error(error);
       }
     };
 
+    const getItems = async () => {
+      try {
+        const res = await axios.get(`/items?col=${slug}`);
+        setItems(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     getCollection();
+    getItems();
   }, []);
 
   return (
@@ -39,14 +49,14 @@ export default function Collection() {
             Add
           </Link>
         </div>
-        {/* {items.length === 0 && <p>No Items</p>} */}
-        {/* {items.length > 0 && (
+        {items.length === 0 && <p>No Items</p>}
+        {items.length > 0 && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {items.map((col, idx) => (
-              <Item {...col} />
+            {items.map((item, idx) => (
+              <Item {...item} key={`item${idx}`} />
             ))}
           </div>
-        )} */}
+        )}
       </Container>
     </div>
   );

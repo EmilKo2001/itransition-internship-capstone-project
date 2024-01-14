@@ -24,16 +24,13 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const username = req.query.user;
-  const colName = req.query.cat;
+  const colName = req.query.col;
   try {
     let posts;
-    if (username) {
-      posts = await Item.find({ username });
-    } else if (colName) {
+    if (colName) {
       posts = await Item.find({
-        categories: {
-          $in: [colName],
+        col: {
+          $eq: colName,
         },
       });
     } else {
