@@ -18,7 +18,7 @@ export default function CollectionCreate() {
       await axios.post(
         "/collections",
         {
-          name: nameRef.current.value,
+          name: nameRef?.current?.value,
         },
         {
           headers: {

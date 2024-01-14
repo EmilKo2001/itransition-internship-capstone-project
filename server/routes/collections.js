@@ -8,7 +8,6 @@ const verifyToken = require("../utils/verifyToken");
 router.post("/", verifyToken, async (req, res) => {
   const { name } = req.body;
   const slug = textToSlug(name);
-  console.log("req.user.fullname ", req.user);
   const newCol = new Collection({ name, slug, author: req.user.fullname });
   try {
     const savedCol = await newCol.save();

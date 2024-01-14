@@ -33,18 +33,19 @@ export default function Register() {
         className="flex flex-col items-center gap-6"
         onSubmit={handleSubmit}
       >
+        {" "}
+        <div className="flex w-full flex-col gap-2">
+          <label>Full Name</label>
+          <input
+            className="input input-bordered w-full max-w-xs"
+            type="text"
+            placeholder="Enter your full name"
+            onChange={(e) => setFullname(e.target.value)}
+            required
+          />{" "}
+        </div>{" "}
         <div className="flex w-full flex-col gap-2">
           {" "}
-          <div className="flex w-full flex-col gap-2">
-            <label>Full Name</label>
-            <input
-              className="input input-bordered w-full max-w-xs"
-              type="text"
-              placeholder="Enter your full name"
-              onChange={(e) => setFullname(e.target.value)}
-              required
-            />{" "}
-          </div>{" "}
           <label>Username</label>
           <input
             className="input input-bordered w-full max-w-xs"

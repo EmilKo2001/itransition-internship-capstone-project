@@ -18,8 +18,8 @@ export default function Login() {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios.post("/auth/login", {
-        username: userRef.current.value,
-        password: passwordRef.current.value,
+        username: userRef?.current?.value,
+        password: passwordRef?.current?.value,
       });
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       history.push("/admin");

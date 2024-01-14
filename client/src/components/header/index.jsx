@@ -27,7 +27,7 @@ export default function Header() {
   return (
     <header className="fixed z-10 w-full shadow">
       <Container>
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 p-0">
           <div className="navbar-start">
             <div className="dropdown">
               <div

@@ -9,7 +9,7 @@ export default function ItemCreate() {
   let { slug } = useParams();
   const [formStatus, setFormStatus] = useState("");
 
-  const nameRef = useRef();
+  const titleRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,8 +18,8 @@ export default function ItemCreate() {
       await axios.post(
         "/items",
         {
-          name: nameRef.current.value,
-          category: slug,
+          title: titleRef?.current?.value,
+          col: slug,
         },
         {
           headers: {
@@ -42,12 +42,12 @@ export default function ItemCreate() {
           onSubmit={handleSubmit}
         >
           <div className="flex w-full flex-col gap-2">
-            <label>Name</label>
+            <label>Title</label>
             <input
               className="input input-bordered w-full max-w-xs"
               type="text"
-              placeholder="Enter name"
-              ref={nameRef}
+              placeholder="Enter title"
+              ref={titleRef}
               required
             />
           </div>

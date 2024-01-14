@@ -38,7 +38,7 @@ export default function Admin() {
           Tab 3
         </a>
       </div> */}
-        <div className="mb-5 flex items-center gap-4 lg:mb-7	">
+        <div className="mb-5 flex items-center justify-between gap-4 lg:mb-7	">
           <h2 className="text-xl lg:text-4xl">Collections</h2>{" "}
           <Link className="btn btn-primary" to="/admin/collections-new">
             Add
