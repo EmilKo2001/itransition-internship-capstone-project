@@ -23,7 +23,13 @@ export default function Item({ title, image, col, slug, tags }) {
             <li>
               Теги:{" "}
               {tags.slice(0, 3).map((tag, idx) => (
-                <span key={`tag${idx}`}>{tag}</span>
+                <Link
+                  to={`/items?tag=${tag}`}
+                  key={`tag${idx}`}
+                  className="mr-1 underline"
+                >
+                  {tag}
+                </Link>
               ))}
             </li>
           )}
