@@ -27,7 +27,7 @@ export default function Sidebar() {
           {tags.map((tag, idx) => (
             <Link
               key={`tag${idx}`}
-              to={`/?cat=`}
+              to={`/items?tag=${tag}`}
               className="rounded-xl border border-solid border-black px-3 py-1"
             >
               {tag}

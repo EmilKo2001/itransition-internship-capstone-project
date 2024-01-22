@@ -13,6 +13,7 @@ import ItemCreate from "./pages/item-create/ItemCreate";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 import Collection from "./pages/Collection/Collection";
+import Collections from "./pages/Collections/Collections";
 
 import "./global.css";
 
@@ -27,9 +28,18 @@ function App() {
           <Route exact path="/">
             <Homepage />
           </Route>
-          <Route path="/posts">
-            <Homepage />
+          <Route path="/collections" exact>
+            <Collections />
           </Route>
+          <Route path="/collections/:slug">
+            <Collection type="page" />
+          </Route>
+          {/* <Route path="/items">
+            <Items />
+          </Route>
+          <Route path="/items/:slug">
+            <Items />
+          </Route> */}
           <Route path="/register">{token ? <Homepage /> : <Register />}</Route>
           <Route path="/login">{token ? <Homepage /> : <Login />}</Route>
           <Route path="/post/:id">

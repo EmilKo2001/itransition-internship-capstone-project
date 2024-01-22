@@ -48,7 +48,7 @@ export default function Admin() {
         {collections.length > 0 && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {collections.map((col, idx) => (
-              <Collection {...col} key={`collection${idx}`} />
+              <Collection {...col} key={`collection${idx}`} isAdmin />
             ))}
           </div>
         )}

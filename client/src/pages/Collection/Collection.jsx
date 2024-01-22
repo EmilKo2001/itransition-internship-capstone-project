@@ -8,7 +8,7 @@ import Item from "../../components/Item";
 
 import { Context } from "../../context/Context";
 
-export default function Collection() {
+export default function Collection({ type }) {
   let { slug } = useParams();
 
   const [collection, setCollection] = useState({});
@@ -42,12 +42,14 @@ export default function Collection() {
       <Container>
         <div className="Collections-center mb-5 flex justify-between gap-4 lg:mb-7">
           <h2 className="text-xl lg:text-4xl">{collection?.name}</h2>
-          <Link
-            className="btn btn-primary"
-            to={`/admin/collections/${slug}/create`}
-          >
-            Add
-          </Link>
+          {type !== "page" && (
+            <Link
+              className="btn btn-primary"
+              to={`/admin/collections/${slug}/create`}
+            >
+              Add
+            </Link>
+          )}
         </div>
         {items.length === 0 && <p>No Items</p>}
         {items.length > 0 && (
