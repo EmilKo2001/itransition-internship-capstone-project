@@ -14,6 +14,7 @@ import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 import Collection from "./pages/Collection/Collection";
 import Collections from "./pages/Collections/Collections";
+import Items from "./pages/Items/Items";
 
 import "./global.css";
 
@@ -34,12 +35,9 @@ function App() {
           <Route path="/collections/:slug">
             <Collection type="page" />
           </Route>
-          {/* <Route path="/items">
+          <Route path="/items" exact>
             <Items />
           </Route>
-          <Route path="/items/:slug">
-            <Items />
-          </Route> */}
           <Route path="/register">{token ? <Homepage /> : <Register />}</Route>
           <Route path="/login">{token ? <Homepage /> : <Login />}</Route>
           <Route path="/post/:id">
