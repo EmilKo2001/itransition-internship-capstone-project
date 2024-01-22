@@ -4,18 +4,19 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Sidebar() {
-  const [cats, setCats] = useState([]);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    const getCats = async () => {
+    const getTags = async () => {
       try {
-        const res = await axios.get("/categories");
-        setCats(res.data);
-      } catch (err) {
-        console.error(err);
+        const res = await axios.get("/items/tags");
+        setTags(res.data);
+      } catch (error) {
+        console.error(error);
       }
     };
-    getCats();
+
+    getTags();
   }, []);
 
   return (
@@ -23,55 +24,15 @@ export default function Sidebar() {
       <div className="p-8 shadow lg:w-[85.8%]">
         <h3 className="mb-5	text-lg lg:text-2xl">Облако Тегов</h3>
         <ul className="flex flex-wrap gap-3 gap-y-5">
-          <li>
+          {tags.map((tag, idx) => (
             <Link
+              key={`tag${idx}`}
               to={`/?cat=`}
               className="rounded-xl border border-solid border-black px-3 py-1"
             >
-              tag 1
+              {tag}
             </Link>
-          </li>{" "}
-          <li>
-            <Link
-              to={`/?cat=`}
-              className="rounded-xl border border-solid border-black px-3 py-1"
-            >
-              tag 1
-            </Link>
-          </li>{" "}
-          <li>
-            <Link
-              to={`/?cat=`}
-              className="rounded-xl border border-solid border-black px-3 py-1"
-            >
-              tag 1
-            </Link>
-          </li>{" "}
-          <li>
-            <Link
-              to={`/?cat=`}
-              className="rounded-xl border border-solid border-black px-3 py-1"
-            >
-              tag 1
-            </Link>
-          </li>{" "}
-          <li>
-            <Link
-              to={`/?cat=`}
-              className="rounded-xl border border-solid border-black px-3 py-1"
-            >
-              tag 1
-            </Link>
-          </li>{" "}
-          {/* {cats.map((c, idx) => (
-            <Link
-              key={`sidebarListItem${idx}`}
-              to={`/?cat=${c.name}`}
-              className="link"
-            >
-              <li className="sidebarListItem">{c.name}</li>
-            </Link>
-          ))} */}
+          ))}
         </ul>
       </div>
     </aside>
