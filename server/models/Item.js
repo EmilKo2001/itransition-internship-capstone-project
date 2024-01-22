@@ -16,9 +16,13 @@ const ItemSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    author: {
-      type: String,
-      required: true,
+    // author: {
+    //   type: String,
+    //   required: true,
+    // },
+    tags: {
+      type: Array,
+      default: [],
     },
     col: {
       type: mongoose.Schema.Types.ObjectId,

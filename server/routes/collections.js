@@ -8,7 +8,7 @@ const verifyToken = require("../utils/verifyToken");
 router.post("/", verifyToken, async (req, res) => {
   const { name } = req.body;
   const slug = textToSlug(name);
-  const newCol = new Collection({ name, slug, author: req.user.fullname });
+  const newCol = new Collection({ name, slug, author: req.user._id });
   try {
     const savedCol = await newCol.save();
     res.status(200).json(savedCol);
@@ -19,7 +19,8 @@ router.post("/", verifyToken, async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const collections = await Collection.find();
+    const collections = await Collection.find().populate("author", "fullname");
+
     res.status(200).json(collections);
   } catch (err) {
     res.status(500).json(err);

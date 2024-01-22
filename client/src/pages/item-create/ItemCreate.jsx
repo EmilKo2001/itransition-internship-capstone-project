@@ -10,6 +10,7 @@ export default function ItemCreate() {
   const [formStatus, setFormStatus] = useState("");
 
   const titleRef = useRef();
+  const tagsRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ export default function ItemCreate() {
         "/items",
         {
           title: titleRef?.current?.value,
+          tags: tagsRef?.current?.value,
           col: collectionId,
         },
         {
@@ -50,6 +52,15 @@ export default function ItemCreate() {
               placeholder="Enter title"
               ref={titleRef}
               required
+            />
+          </div>
+          <div className="flex w-full flex-col gap-2">
+            <label>Tags</label>
+            <input
+              className="input input-bordered w-full max-w-xs"
+              type="text"
+              placeholder="Enter tags"
+              ref={tagsRef}
             />
           </div>
           {formStatus === "success" && (

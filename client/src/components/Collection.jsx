@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Collection({ name, image, qty, slug, author }) {
+export default function Collection({ name, image, itemsCount, slug, author }) {
   return (
     <div className="card w-full shadow">
       {/* <img src={image} alt={name} /> */}
@@ -11,8 +11,8 @@ export default function Collection({ name, image, qty, slug, author }) {
       />
       <div className="card-body">
         <h2 className="card-title mb-2">{name}</h2>{" "}
-        <p className="mb-2">Автор: {author}</p>
-        <p className="mb-2">Колическо айтемов: {qty}</p>
+        <p className="mb-2">Автор: {author.fullname}</p>
+        <p className="mb-2">Колическо айтемов: {itemsCount}</p>
         <Link className="btn btn-primary" to={`/admin/collections/${slug}`}>
           Смотреть
         </Link>

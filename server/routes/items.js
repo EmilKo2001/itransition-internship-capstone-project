@@ -1,23 +1,38 @@
 const router = require("express").Router();
 
 const mongoose = require("mongoose");
-// const User = require("../models/User");
 const Item = require("../models/Item");
+const Collection = require("../models/Collection");
 
 const textToSlug = require("../utils/textToSlug");
 const verifyToken = require("../utils/verifyToken");
+const mostFreqStr = require("../utils/mostFreqStr");
 
 router.post("/", verifyToken, async (req, res) => {
-  const { title, col } = req.body;
+  const { title, col, tags } = req.body;
   const slug = textToSlug(title);
-  const newItem = new Item({
-    title,
-    slug,
-    col,
-    author: req.user.fullname,
-  });
+  let newItem;
+
+  if (req.body.tags) {
+    newItem = new Item({
+      title,
+      slug,
+      col,
+      tags: tags.split(","),
+    });
+  } else {
+    newItem = new Item({
+      title,
+      slug,
+      col,
+    });
+  }
+
   try {
     const savedItem = await newItem.save();
+    await Collection.findByIdAndUpdate(col, {
+      $inc: { itemsCount: 1 },
+    });
     res.status(200).json(savedItem);
   } catch (err) {
     res.status(500).json(err);
@@ -35,11 +50,25 @@ router.get("/", async (req, res) => {
         },
       })
         .sort({ createdAt: -1 })
-        .populate("col", "name slug");
+        .populate({
+          path: "col",
+          select: "name slug author",
+          populate: {
+            path: "author",
+            select: "fullname",
+          },
+        });
     } else {
       posts = await Item.find()
         .sort({ createdAt: -1 })
-        .populate("col", "name slug");
+        .populate({
+          path: "col",
+          select: "name slug author",
+          populate: {
+            path: "author",
+            select: "fullname",
+          },
+        });
     }
     res.status(200).json(posts);
   } catch (err) {
@@ -84,6 +113,17 @@ router.delete("/:id", verifyToken, async (req, res) => {
     } else {
       res.status(401).json("You can delete only your item!");
     }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/tags", async (req, res) => {
+  try {
+    const items = await Item.find();
+    const tags = mostFreqStr(items.map((obj) => obj.tags).flat());
+
+    res.status(200).json(tags);
   } catch (err) {
     res.status(500).json(err);
   }
