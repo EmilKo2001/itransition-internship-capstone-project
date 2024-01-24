@@ -43,4 +43,48 @@ router.get("/:slug", async (req, res) => {
   }
 });
 
+router.put("/:slug", verifyToken, async (req, res) => {
+  const { slug } = req.params;
+  const { name } = req.body;
+
+  try {
+    const collection = await Collection.findOne({ slug });
+
+    if (!collection) {
+      return res.status(404).json({ error: "Collection not found" });
+    }
+
+    collection.name = name;
+    collection.slug = textToSlug(name);
+
+    const updatedCol = await collection.save();
+
+    res.status(200).json(updatedCol);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.delete("/:slug", verifyToken, async (req, res) => {
+  const { slug } = req.params;
+
+  try {
+    const collection = await Collection.findOne({ slug });
+
+    if (!collection) {
+      return res.status(404).json({ error: "Collection not found" });
+    }
+
+    if (collection.author.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ error: "Permission denied" });
+    }
+
+    await collection.remove();
+
+    res.status(200).json({ message: "Collection deleted successfully" });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

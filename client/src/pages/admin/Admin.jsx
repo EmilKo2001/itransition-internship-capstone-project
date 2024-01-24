@@ -27,21 +27,10 @@ export default function Admin() {
   return (
     <div>
       <Container>
-        {/* <div role="tablist" className="tabs tabs-boxed">
-        <a role="tab" className="tab">
-          Collections
-        </a>
-        <a role="tab" className="tab tab-active">
-          Tab 2
-        </a>
-        <a role="tab" className="tab">
-          Tab 3
-        </a>
-      </div> */}
         <div className="mb-5 flex items-center justify-between gap-4 lg:mb-7	">
           <h2 className="text-xl lg:text-4xl">Collections</h2>{" "}
           <Link className="btn btn-primary" to="/admin/collections-new">
-            Add
+            Add Collection
           </Link>
         </div>
         {collections.length === 0 && <p>No Collection</p>}

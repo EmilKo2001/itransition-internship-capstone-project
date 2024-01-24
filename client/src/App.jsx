@@ -8,7 +8,8 @@ import Homepage from "./pages/homepage/Homepage";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Admin from "./pages/admin/Admin";
-import CollectionCreate from "./pages/collections-create/CollectionCreate";
+import CollectionCreate from "./pages/CollectionCreate/CollectionCreate";
+import CollectionEdit from "./pages/CollectionEdit/CollectionEdit";
 import ItemCreate from "./pages/item-create/ItemCreate";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
@@ -47,7 +48,10 @@ function App() {
           <Route path="/admin/collections-new">
             {token ? <CollectionCreate /> : <Login />}
           </Route>
-          <Route path="/admin/collections/:slug/create">
+          <Route path="/admin/collections/:slug/edit" exact>
+            {token ? <CollectionEdit /> : <Login />}
+          </Route>
+          <Route path="/admin/collections/:slug/create" exact>
             {token ? <ItemCreate /> : <Login />}
           </Route>
           <Route path="/admin/collections/:slug">

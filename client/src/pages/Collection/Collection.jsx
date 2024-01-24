@@ -1,15 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, Link, useHistory } from "react-router-dom";
 
 import axios from "axios";
 
 import Container from "../../components/Container";
 import Item from "../../components/Item";
 
-import { Context } from "../../context/Context";
-
 export default function Collection({ type }) {
   let { slug } = useParams();
+  let history = useHistory();
 
   const [collection, setCollection] = useState({});
   const [items, setItems] = useState([]);
@@ -18,10 +17,14 @@ export default function Collection({ type }) {
     const getCollection = async () => {
       try {
         const res = await axios.get(`/collections/${slug}`);
+
         setCollection(res.data);
         getItems(res.data._id);
       } catch (error) {
         console.error(error);
+        if (error.response.data.error === "Collection not found") {
+          history.push("/404");
+        }
       }
     };
 
@@ -37,18 +40,47 @@ export default function Collection({ type }) {
     getCollection();
   }, []);
 
+  const deleteCollection = async () => {
+    try {
+      await axios.delete(`/collections/${slug}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      alert("Deleted successfuly");
+      history.push("/admin");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div>
       <Container>
         <div className="Collections-center mb-5 flex justify-between gap-4 lg:mb-7">
           <h2 className="text-xl lg:text-4xl">{collection?.name}</h2>
           {type !== "page" && (
-            <Link
-              className="btn btn-primary"
-              to={`/admin/collections/${slug}/create`}
-            >
-              Add
-            </Link>
+            <div className="flex gap-4">
+              <Link
+                className="btn btn-primary"
+                to={`/admin/collections/${slug}/edit`}
+              >
+                Edit Collection
+              </Link>{" "}
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={deleteCollection}
+              >
+                Delete Collection
+              </button>
+              <Link
+                className="btn btn-primary"
+                to={`/admin/collections/${slug}/create`}
+              >
+                Add Items
+              </Link>
+            </div>
           )}
         </div>
         {items.length === 0 && <p>No Items</p>}
