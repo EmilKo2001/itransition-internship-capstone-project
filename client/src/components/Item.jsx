@@ -4,11 +4,7 @@ import { Link } from "react-router-dom";
 export default function Item({ title, image, col, slug, tags }) {
   return (
     <div className="card w-full shadow">
-      {/* <img src={image} alt={title} /> */}
-      <img
-        src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-        alt="Shoes"
-      />
+      <img src="/images/placeholder.png" alt={title} />
       <div className="card-body">
         <h2 className="card-title mb-2">{title}</h2>
         <ul className="mb-4 grow">
