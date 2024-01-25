@@ -7,7 +7,6 @@ import Container from "../Container";
 
 export default function Header() {
   const { token, dispatch } = useContext(Context);
-  const PF = "http://localhost:5000/images/";
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
