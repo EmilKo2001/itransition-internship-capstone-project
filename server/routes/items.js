@@ -109,13 +109,30 @@ router.put("/:identifier", verifyToken, async (req, res) => {
 
     if (item.username === req.body.username) {
       try {
-        const updatedItem = await Item.findByIdAndUpdate(
-          item._id,
-          {
-            $set: req.body,
-          },
+        let newItem;
+        const slug = textToSlug(req.body.title);
+
+        if (req.body.tags) {
+          newItem = {
+            title: req.body.title,
+            slug,
+            content: req.body.content,
+            tags: req.body.tags.split(","),
+          };
+        } else {
+          newItem = {
+            title: req.body.title,
+            slug,
+            content: req.body.content,
+          };
+        }
+
+        const updatedItem = await Item.findOneAndUpdate(
+          { _id: item._id },
+          { $set: newItem },
           { new: true }
         );
+
         res.status(200).json(updatedItem);
       } catch (err) {
         res.status(500).json({ error: err.message });

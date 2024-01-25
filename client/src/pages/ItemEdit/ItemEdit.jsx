@@ -9,7 +9,7 @@ import Container from "../../components/Container";
 import "easymde/dist/easymde.min.css";
 
 export default function ItemEdit() {
-  let { slug } = useParams();
+  let { collection, slug } = useParams();
   const [formStatus, setFormStatus] = useState("");
   const history = useHistory();
 
@@ -56,7 +56,7 @@ export default function ItemEdit() {
       );
       setFormStatus("success");
       setTimeout(() => {
-        history.push(`/collections/${slug}/${createdItem?.data?.slug}`);
+        history.push(`/collections/${collection}/${createdItem?.data?.slug}`);
       }, 3000);
     } catch (err) {
       setFormStatus(err.message);
