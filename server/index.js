@@ -3,7 +3,6 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const authRoute = require("./routes/auth");
-const userRoute = require("./routes/users");
 const itemsRoute = require("./routes/items");
 const collectionRoute = require("./routes/collections");
 const multer = require("multer");
@@ -40,7 +39,6 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 });
 
 app.use("/api/auth", authRoute);
-// app.use("/api/users", userRoute);
 app.use("/api/items", itemsRoute);
 app.use("/api/collections", collectionRoute);
 
