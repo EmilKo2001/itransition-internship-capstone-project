@@ -92,27 +92,39 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/:id", verifyToken, async (req, res) => {
+router.put("/:identifier", verifyToken, async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id);
+    let item;
+    const identifier = req.params.identifier;
+
+    if (mongoose.Types.ObjectId.isValid(identifier)) {
+      item = await Item.findById(identifier);
+    } else {
+      item = await Item.findOne({ slug: identifier });
+    }
+
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
     if (item.username === req.body.username) {
       try {
-        const updateditem = await Item.findByIdAndUpdate(
-          req.params.id,
+        const updatedItem = await Item.findByIdAndUpdate(
+          item._id,
           {
             $set: req.body,
           },
           { new: true }
         );
-        res.status(200).json(updateditem);
+        res.status(200).json(updatedItem);
       } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ error: err.message });
       }
     } else {
       res.status(401).json("You can update only your item!");
     }
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -145,12 +157,24 @@ router.get("/tags", async (req, res) => {
   }
 });
 
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/:identifier", async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id);
+    let item;
+    const identifier = req.params.identifier;
+
+    if (mongoose.Types.ObjectId.isValid(identifier)) {
+      item = await Item.findById(identifier);
+    } else {
+      item = await Item.findOne({ slug: identifier });
+    }
+
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
     res.status(200).json(item);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 

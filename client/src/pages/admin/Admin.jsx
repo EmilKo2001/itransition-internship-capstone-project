@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-import { Context } from "../../context/Context";
 import Container from "../../components/Container";
-import { Link } from "react-router-dom";
+
 import Collection from "../../components/Collection";
 
 export default function Admin() {

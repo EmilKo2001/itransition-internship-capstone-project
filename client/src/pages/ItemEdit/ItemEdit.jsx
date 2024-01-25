@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useCallback } from "react";
+import { useState, useRef, useMemo, useCallback, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
 import axios from "axios";
@@ -8,7 +8,7 @@ import Container from "../../components/Container";
 
 import "easymde/dist/easymde.min.css";
 
-export default function ItemCreate() {
+export default function ItemEdit() {
   let { slug } = useParams();
   const [formStatus, setFormStatus] = useState("");
   const history = useHistory();
@@ -22,18 +22,31 @@ export default function ItemCreate() {
   const titleRef = useRef();
   const tagsRef = useRef();
 
+  useEffect(() => {
+    const getItem = async () => {
+      try {
+        const createdItem = await axios.get(`/items/${slug}`);
+        titleRef.current.value = createdItem?.data?.title;
+        tagsRef.current.value = createdItem?.data?.tags;
+        setContent(createdItem?.data?.content);
+      } catch (err) {
+        setFormStatus(err.message);
+      }
+    };
+
+    getItem();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus("loading");
     try {
-      const collectionId = (await axios.get(`/collections/${slug}`)).data._id;
-      const createdItem = await axios.post(
-        "/items",
+      const createdItem = await axios.put(
+        `/items/${slug}`,
         {
           title: titleRef?.current?.value,
           tags: tagsRef?.current?.value,
           content,
-          col: collectionId,
         },
         {
           headers: {
@@ -65,7 +78,7 @@ export default function ItemCreate() {
   return (
     <div>
       <Container className="max-w-80">
-        <h1 className="mb-4 text-xl lg:text-4xl">Add Item</h1>
+        <h1 className="mb-4 text-xl lg:text-4xl">Edit Item</h1>
         <form
           className="flex flex-col items-center gap-6"
           onSubmit={handleSubmit}
@@ -107,7 +120,7 @@ export default function ItemCreate() {
             type="submit"
             disabled={formStatus === "loading"}
           >
-            Create
+            Edit
           </button>
         </form>
       </Container>

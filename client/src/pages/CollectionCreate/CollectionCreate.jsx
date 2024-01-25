@@ -1,13 +1,13 @@
-import { useContext, useState, useRef } from "react";
+import { useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
 
 import axios from "axios";
 
-import { Context } from "../../context/Context";
 import Container from "../../components/Container";
 
 export default function CollectionCreate() {
-  const { user } = useContext(Context);
   const [formStatus, setFormStatus] = useState("");
+  const history = useHistory();
 
   const nameRef = useRef();
 
@@ -27,6 +27,9 @@ export default function CollectionCreate() {
         },
       );
       setFormStatus("success");
+      setTimeout(() => {
+        history.push(`/admin`);
+      }, 3000);
     } catch (err) {
       setFormStatus(err.message);
     }

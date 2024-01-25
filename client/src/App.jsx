@@ -11,11 +11,11 @@ import Admin from "./pages/admin/Admin";
 import CollectionCreate from "./pages/CollectionCreate/CollectionCreate";
 import CollectionEdit from "./pages/CollectionEdit/CollectionEdit";
 import ItemCreate from "./pages/ItemCreate/ItemCreate";
-import Single from "./pages/single/Single";
-import Write from "./pages/write/Write";
 import Collection from "./pages/Collection/Collection";
 import Collections from "./pages/Collections/Collections";
 import Items from "./pages/Items/Items";
+import Item from "./pages/Item/Item";
+import ItemEdit from "./pages/ItemEdit/ItemEdit";
 
 import "./global.css";
 
@@ -27,25 +27,31 @@ function App() {
       <Header />
       <main className="pt-8 lg:pt-28">
         <Switch>
-          <Route exact path="/">
+          <Route path="/" exact>
             <Homepage />
           </Route>
           <Route path="/collections" exact>
             <Collections />
           </Route>
-          <Route path="/collections/:slug">
+          <Route path="/collections/:slug" exact>
             <Collection type="page" />
+          </Route>
+          <Route path="/collections/:collection/:slug" exact>
+            <Item type={token ? "authed" : ""} />
+          </Route>
+          <Route path="/admin/collections/:collection/:slug/edit" exact>
+            <ItemEdit />
           </Route>
           <Route path="/items" exact>
             <Items />
           </Route>
-          <Route path="/register">{token ? <Homepage /> : <Register />}</Route>
-          <Route path="/login">{token ? <Homepage /> : <Login />}</Route>
-          <Route path="/post/:id">
-            <Single />
+          <Route path="/register" exact>
+            {token ? <Homepage /> : <Register />}
           </Route>
-          <Route path="/write">{token ? <Write /> : <Login />}</Route>
-          <Route path="/admin/collections-new">
+          <Route path="/login" exact>
+            {token ? <Homepage /> : <Login />}
+          </Route>
+          <Route path="/admin/collections-new" exact>
             {token ? <CollectionCreate /> : <Login />}
           </Route>
           <Route path="/admin/collections/:slug/edit" exact>
@@ -54,10 +60,12 @@ function App() {
           <Route path="/admin/collections/:slug/create" exact>
             {token ? <ItemCreate /> : <Login />}
           </Route>
-          <Route path="/admin/collections/:slug">
+          <Route path="/admin/collections/:slug" exact>
             {token ? <Collection /> : <Login />}
           </Route>
-          <Route path="/admin">{token ? <Admin /> : <Login />}</Route>
+          <Route path="/admin" exact>
+            {token ? <Admin /> : <Login />}
+          </Route>
           <Route path="*">
             <h1 className="text-center text-xl lg:text-4xl">404</h1>
           </Route>
