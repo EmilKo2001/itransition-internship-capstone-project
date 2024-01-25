@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 
-import axios from "axios";
+import axios from "../../config/axios";
 
 import Container from "../../components/Container";
 

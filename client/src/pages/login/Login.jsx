@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
-import axios from "axios";
+import axios from "../../config/axios";
 
 import { Context } from "../../context/Context";
 import Container from "../../components/Container";

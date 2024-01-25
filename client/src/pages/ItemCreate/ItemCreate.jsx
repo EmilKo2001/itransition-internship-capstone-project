@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useCallback } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-import axios from "axios";
+import axios from "../../config/axios";
 import SimpleMDE from "react-simplemde-editor";
 
 import Container from "../../components/Container";

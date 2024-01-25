@@ -43,6 +43,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://itransition-internship-capstone-project.onrender.com/api/"
+  }
 }

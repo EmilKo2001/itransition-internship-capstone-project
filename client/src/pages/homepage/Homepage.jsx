@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+import axios from "../../config/axios";
 
 import Sidebar from "../../components/sidebar/Sidebar";
 import Container from "../../components/Container";

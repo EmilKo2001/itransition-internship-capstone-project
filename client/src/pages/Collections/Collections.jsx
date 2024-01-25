@@ -1,14 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import axios from "axios";
+import axios from "../../config/axios";
 
 import Container from "../../components/Container";
 import Collection from "../../components/Collection";
 
 export default function Collections() {
-  let { slug } = useParams();
-
   const [collections, setCollections] = useState([]);
 
   useEffect(() => {

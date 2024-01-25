@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import axios from "axios";
+import axios from "../../config/axios";
 
 import Container from "../../components/Container";
 import Item from "../../components/Item";

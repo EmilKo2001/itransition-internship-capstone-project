@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import axios from "axios";
+import axios from "../../config/axios";
+
 import Container from "../../components/Container";
 
 export default function Register() {
