@@ -12,14 +12,9 @@ const ItemSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    image: {
+    content: {
       type: String,
-      required: false,
     },
-    // author: {
-    //   type: String,
-    //   required: true,
-    // },
     tags: {
       type: Array,
       default: [],

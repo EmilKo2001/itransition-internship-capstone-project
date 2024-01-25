@@ -10,7 +10,7 @@ import Register from "./pages/register/Register";
 import Admin from "./pages/admin/Admin";
 import CollectionCreate from "./pages/CollectionCreate/CollectionCreate";
 import CollectionEdit from "./pages/CollectionEdit/CollectionEdit";
-import ItemCreate from "./pages/item-create/ItemCreate";
+import ItemCreate from "./pages/ItemCreate/ItemCreate";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 import Collection from "./pages/Collection/Collection";

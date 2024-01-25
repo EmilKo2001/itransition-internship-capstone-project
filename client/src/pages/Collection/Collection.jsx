@@ -78,7 +78,7 @@ export default function Collection({ type }) {
                 className="btn btn-primary"
                 to={`/admin/collections/${slug}/create`}
               >
-                Add Items
+                Add Item
               </Link>
             </div>
           )}

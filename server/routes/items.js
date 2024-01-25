@@ -9,7 +9,7 @@ const verifyToken = require("../utils/verifyToken");
 const mostFreqStr = require("../utils/mostFreqStr");
 
 router.post("/", verifyToken, async (req, res) => {
-  const { title, col, tags } = req.body;
+  const { title, col, content, tags } = req.body;
   const slug = textToSlug(title);
   let newItem;
 
@@ -17,6 +17,7 @@ router.post("/", verifyToken, async (req, res) => {
     newItem = new Item({
       title,
       slug,
+      content,
       col,
       tags: tags.split(","),
     });
@@ -24,6 +25,7 @@ router.post("/", verifyToken, async (req, res) => {
     newItem = new Item({
       title,
       slug,
+      content,
       col,
     });
   }

@@ -1,13 +1,22 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 import axios from "axios";
+import SimpleMDE from "react-simplemde-editor";
 
 import Container from "../../components/Container";
+
+import "easymde/dist/easymde.min.css";
 
 export default function ItemCreate() {
   let { slug } = useParams();
   const [formStatus, setFormStatus] = useState("");
+
+  const [content, setContent] = useState("");
+
+  const onChange = useCallback((value) => {
+    setContent(value);
+  }, []);
 
   const titleRef = useRef();
   const tagsRef = useRef();
@@ -22,6 +31,7 @@ export default function ItemCreate() {
         {
           title: titleRef?.current?.value,
           tags: tagsRef?.current?.value,
+          content,
           col: collectionId,
         },
         {
@@ -35,6 +45,18 @@ export default function ItemCreate() {
       setFormStatus(err.message);
     }
   };
+
+  const options = useMemo(
+    () => ({
+      spellChecker: false,
+      maxHeight: "400px",
+      autofocus: true,
+      placeholder: "Enter text...",
+      status: false,
+      autosave: { uniqueId: "uniqueId", enabled: true, delay: 1000 },
+    }),
+    [],
+  );
 
   return (
     <div>
@@ -54,6 +76,7 @@ export default function ItemCreate() {
               required
             />
           </div>
+          <SimpleMDE value={content} onChange={onChange} options={options} />
           <div className="flex w-full flex-col gap-2">
             <label>Tags</label>
             <input
