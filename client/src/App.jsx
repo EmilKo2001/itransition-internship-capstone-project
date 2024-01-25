@@ -67,7 +67,7 @@ function App() {
             {token ? <Admin /> : <Login />}
           </Route>
           <Route path="*">
-            <h1 className="text-center text-xl lg:text-4xl">404</h1>
+            <h1 className="text-center text-xl lg:text-4xl">404 - Not Found</h1>
           </Route>
         </Switch>
       </main>
