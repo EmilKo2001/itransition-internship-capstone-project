@@ -1,11 +1,7 @@
+var slugify = require("slugify");
+
 function textToSlug(text) {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w\-]+/g, "")
-    .replace(/\-\-+/g, "-")
-    .replace(/^-+/, "")
-    .replace(/-+$/, "");
+  return slugify(text);
 }
 
 module.exports = textToSlug;
