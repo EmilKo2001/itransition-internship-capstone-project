@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Collection = require("../models/Collection");
+const Item = require("../models/Item");
 
 const textToSlug = require("../utils/textToSlug");
 const verifyToken = require("../utils/verifyToken");
@@ -80,6 +81,8 @@ router.delete("/:slug", verifyToken, async (req, res) => {
     }
 
     await collection.remove();
+
+    await Item.deleteMany({ col: mongoose.Types.ObjectId(collection._id) });
 
     res.status(200).json({ message: "Collection deleted successfully" });
   } catch (err) {

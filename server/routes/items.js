@@ -7,6 +7,7 @@ const Collection = require("../models/Collection");
 const textToSlug = require("../utils/textToSlug");
 const verifyToken = require("../utils/verifyToken");
 const mostFreqStr = require("../utils/mostFreqStr");
+const isValidObjectId = require("../utils/isValidObjectId");
 
 router.post("/", verifyToken, async (req, res) => {
   const { title, col, content, tags } = req.body;
@@ -97,7 +98,7 @@ router.put("/:identifier", verifyToken, async (req, res) => {
     let item;
     const identifier = req.params.identifier;
 
-    if (mongoose.Types.ObjectId.isValid(identifier)) {
+    if (isValidObjectId(identifier)) {
       item = await Item.findById(identifier);
     } else {
       item = await Item.findOne({ slug: identifier });
@@ -179,7 +180,7 @@ router.get("/:identifier", async (req, res) => {
     let item;
     const identifier = req.params.identifier;
 
-    if (mongoose.Types.ObjectId.isValid(identifier)) {
+    if (isValidObjectId(identifier)) {
       item = await Item.findById(identifier);
     } else {
       item = await Item.findOne({ slug: identifier });
