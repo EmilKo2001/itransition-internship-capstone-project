@@ -25,7 +25,7 @@ export default function Homepage() {
 
     const getCollections = async () => {
       try {
-        const res = await axios.get("/collections");
+        const res = await axios.get("/collections?largest");
         setCollections(res.data);
       } catch (error) {
         console.error(error);

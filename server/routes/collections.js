@@ -20,7 +20,16 @@ router.post("/", verifyToken, async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const collections = await Collection.find().populate("author", "fullname");
+    let collections;
+
+    if (req.query.hasOwnProperty("largest")) {
+      collections = await Collection.find()
+        .sort({ itemsCount: -1 })
+        .limit(5)
+        .populate("author", "fullname");
+    } else {
+      collections = await Collection.find().populate("author", "fullname");
+    }
 
     res.status(200).json(collections);
   } catch (err) {
