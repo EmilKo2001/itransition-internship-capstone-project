@@ -14,7 +14,7 @@ export default function Homepage() {
   useEffect(() => {
     const getItems = async () => {
       try {
-        const res = await axios.get(`/items`);
+        const res = await axios.get(`/items?latest`);
         setItems(res.data);
       } catch (error) {
         console.error(error);

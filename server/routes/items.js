@@ -45,6 +45,7 @@ router.post("/", verifyToken, async (req, res) => {
 router.get("/", async (req, res) => {
   const colId = req.query.col;
   const tag = req.query.tag;
+
   try {
     let posts;
     if (colId) {
@@ -67,6 +68,18 @@ router.get("/", async (req, res) => {
         tags: { $in: tag },
       })
         .sort({ createdAt: -1 })
+        .populate({
+          path: "col",
+          select: "name slug author",
+          populate: {
+            path: "author",
+            select: "fullname",
+          },
+        });
+    } else if (req.query.hasOwnProperty("latest")) {
+      posts = await Item.find()
+        .sort({ createdAt: -1 })
+        .limit(6)
         .populate({
           path: "col",
           select: "name slug author",
