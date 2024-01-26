@@ -10,11 +10,11 @@ export default function Item({ title, image, col, slug, tags }) {
         <ul className="mb-4 grow">
           <li>
             Коллеция:{" "}
-            <Link to={`/collections/${col.slug}`} className="underline">
-              {col.name}
+            <Link to={`/collections/${col?.slug}`} className="underline">
+              {col?.name}
             </Link>
           </li>
-          <li>Автор: {col.author.fullname}</li>
+          <li>Автор: {col?.author.fullname}</li>
           {tags.length > 0 && (
             <li>
               Теги:{" "}
@@ -32,9 +32,9 @@ export default function Item({ title, image, col, slug, tags }) {
         </ul>
         <Link
           className="btn btn-primary"
-          to={`/collections/${col.slug}/${slug}`}
+          to={`/collections/${col?.slug}/${slug}`}
         >
-          Смотреть
+          Читать
         </Link>
       </div>
     </div>
