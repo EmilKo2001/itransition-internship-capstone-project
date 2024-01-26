@@ -82,6 +82,7 @@ router.delete("/:slug", verifyToken, async (req, res) => {
 
     await collection.remove();
 
+    // FIX: Deprecation Warning
     await Item.deleteMany({ col: mongoose.Types.ObjectId(collection._id) });
 
     res.status(200).json({ message: "Collection deleted successfully" });
