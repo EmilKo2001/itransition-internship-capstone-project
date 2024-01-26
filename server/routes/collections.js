@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
 
     if (req.query.hasOwnProperty("largest")) {
       collections = await Collection.find()
-        .sort({ ItemsCount: -1 })
+        .sort({ itemsCount: -1 })
         .limit(5)
         .populate("author", "fullname");
     } else {
